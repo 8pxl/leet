@@ -4,18 +4,14 @@ import time
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         left, right, ans = 0, 0, 0
-        chars: dict[int, int] = dict() 
+        chars: dict[str, int] = dict() 
         while (left <=right < len(s)):
-            print(s[left:right+1])
-            char = ord(s[right])
-            if char not in chars.keys():
-                chars[char] = right
-                right += 1
-            else:
+            char = s[right]
+            if char in chars and (chars[char] >=left):
                 left = chars[char]+1
-                chars = dict()
-                right = left
-            ans = max(ans, len(chars.keys()))
+            chars[char] = right
+            right+=1
+            ans = max(ans, (right+1-left))
         return ans
 
 
