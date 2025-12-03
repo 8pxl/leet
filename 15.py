@@ -2,15 +2,29 @@ class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         nums.sort()
         ln = len(nums)
-        sols = set()
-        for i in range(ln):
-            left = i
+        #set is valid bc:equalf
+        sols: set[tuple[int,int,int]] = set()
+        print(nums)
+        for i in range(ln-1):
+            left = i+1
             right = ln-1
-        return([[1]])
+            print("checking: ", i)
+            curr = nums[i]
+            while (left < right):
+                print(nums[left], nums[right])
+                sum = nums[left] + nums[right]
+                if not (curr + sum):
+                    sols.add((curr, nums[left], nums[right]))
+                    left += 1
+                elif (sum > (-1*curr)):
+                    right -= 1
+                else:
+                    left += 1
+        return(list(map(list,tuple(sols))))
 
 
 test = Solution()
-sol = test.threeSum([-1,0,1,2,-1,-4])
+sol = test.threeSum([-100,-70,-60,110,120,130,160])
 print(sol)
 
 
@@ -39,3 +53,8 @@ print(sol)
 # -1, 2 (1, greater than 0, so )
 #
 # fundementally, i dont get how 
+# lets say we've arrived at a solution, how do we know weather we should start or if there will be a solution in thefuture as well?
+# ok well there 2 cases, either we find more numbers that sum up to our base number, in which ase the numbers cant be repeated? is that true 
+
+
+
