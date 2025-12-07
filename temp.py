@@ -1,5 +1,5 @@
 import time
-
+from lib import *
 
 class Solution:
     def solve():
