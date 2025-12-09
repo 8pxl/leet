@@ -3,29 +3,21 @@ from lib import *
 
 class Solution:
     def reverseBetween(self, head: ListNode, left: int, right: int) -> Node:
-        stack: list[ListNode] = []
+        dummy = ListNode(0, head)
+        start = dummy
         curr = head
-        index = 1
-        while index <= right:
-            assert(curr is not None)
-            if left <= index <= right:
-                stack.append(curr)
-            index += 1
-            curr = curr.next
-        end = curr
-        start = ListNode(0, head)
-        curr = start
-        index = 0
-        while index+1 < left:
-            curr = curr.next
-            index += 1
-        while len(stack) > 0:
-            curr = curr.next
-            node = stack.pop()
-            print(node)
-            curr.next = node
-        curr.next = end
-        return start.next
+        for i in range(left-1):
+            start = start.next  # pyright: ignore[reportOptionalMemberAccess]
+            curr = curr.next  # pyright: ignore[reportOptionalMemberAccess]
+        prev = None
+        for i in range(right + 1 - left):
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        start.next.next = curr
+        start.next = prev
+        return dummy.next
 
 
 test = Solution()
