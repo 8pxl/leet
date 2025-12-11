@@ -3,19 +3,17 @@ from lib import *
 
 class Solution:
     def strongPasswordCheckerII(self, password:str) -> bool:
-        bitmask = 0
-        bitmask |= (1 if len(password) >= 8 else 0) << 0
-        prev = "00"
+        bitmask = int(len(password) >= 8) << 0
+        prev = "meow"
         for char in password:
             oc = ord(char)
-            bitmask |= (1 if ord('a') <= oc <= ord('z') else 0) << 1
-            bitmask |= (1 if ord('A') <= oc <= ord('Z') else 0) << 2
-            bitmask |= (1 if ord('0') <= oc <= ord('9') else 0) << 3
-            bitmask |= (1 if char in "!@#$%^&*()-+" else 0) << 4
-            bitmask |= (1 if char == prev else 0) << 5
+            bitmask |= int(ord('a') <= oc <= ord('z')) << 1
+            bitmask |= int(ord('A') <= oc <= ord('Z')) << 2
+            bitmask |= int(ord('0') <= oc <= ord('9')) << 3
+            bitmask |= int(char in "!@#$%^&*()-+") << 4
+            bitmask |= int(char == prev) << 5
             prev = char
         bitmask ^= (1 << 5)
-        print(bin(bitmask))
         return ((bitmask & 0b111111) == 0b111111)
 
 
